@@ -25,9 +25,12 @@ module Roadie
         else
           @targets = default_css_targets
         end
+        
+        @record = headers[:record] if headers.has_key?(:record)
 
         mail_without_inline_styles(headers, &block).tap do |email|
           email.header.fields.delete_if { |field| field.name == 'css' }
+          email.header.fields.delete_if { |field| field.name == 'record' }
         end
       end
 
@@ -58,7 +61,7 @@ module Roadie
 
       def inline_style_response(response)
         if response[:content_type] == 'text/html'
-          response.merge :body => Roadie.inline_css(Roadie.current_provider, css_targets, response[:body], url_options, headers[:record])
+          response.merge :body => Roadie.inline_css(Roadie.current_provider, css_targets, response[:body], url_options, @record)
         else
           response
         end
