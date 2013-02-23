@@ -29,7 +29,7 @@ module Roadie
     # @param [Array] targets List of CSS files to load via the provider
     # @param [String] html
     # @param [Hash] url_options Supported keys: +:host+, +:port+, +:protocol+
-    def initialize(assets, targets, html, url_options)
+    def initialize(assets, targets, html, url_options, record = nil)
       @assets = assets
       @css = assets.all(targets)
       @html = html
@@ -193,7 +193,7 @@ module Roadie
           :scheme => url_options[:protocol] || 'http',
           :host => url_options[:host],
           :port => (port ? port.to_i : nil),
-          :path => base_path
+          :path => record.nil? ? base_path : "/uploads/#{record.class.to_s.underscore.pluralize}/#{record.id}"
         })
       end
 
