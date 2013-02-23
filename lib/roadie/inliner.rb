@@ -35,6 +35,7 @@ module Roadie
       @html = html
       @inline_css = []
       @url_options = url_options
+      @record = record
 
       if url_options and url_options[:asset_path_prefix]
         raise ArgumentError, "The asset_path_prefix URL option is not working anymore. You need to add the following configuration to your application.rb:\n" +
@@ -193,7 +194,7 @@ module Roadie
           :scheme => url_options[:protocol] || 'http',
           :host => url_options[:host],
           :port => (port ? port.to_i : nil),
-          :path => record.nil? ? base_path : "/uploads/#{record.class.to_s.underscore.pluralize}/#{record.id}"
+          :path => @record.nil? ? base_path : "/uploads/#{@record.class.to_s.underscore.pluralize}/#{@record.id}"
         })
       end
 
