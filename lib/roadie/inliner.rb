@@ -194,7 +194,7 @@ module Roadie
           :scheme => url_options[:protocol] || 'http',
           :host => url_options[:host],
           :port => (port ? port.to_i : nil),
-          :path => @record.nil? ? base_path : "/uploads/#{@record.class.to_s.underscore.pluralize}/#{@record.id}"
+          :path => @record.nil? ? base_path : "/uploads/#{@record.class.to_s.underscore}/#{@record.id}/"
         })
       end
 
