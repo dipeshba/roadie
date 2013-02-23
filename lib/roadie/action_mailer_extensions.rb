@@ -61,7 +61,7 @@ module Roadie
 
       def inline_style_response(response)
         if response[:content_type] == 'text/html'
-          response.merge :body => Roadie.inline_css((@record.blank? ? Roadie.current_provider : Roadie::FilesystemProvider.new(nil, "public/uploads/#{@record.class.to_s.underscore}/#{@record.id}")), css_targets, response[:body], url_options, @record)
+          response.merge :body => Roadie.inline_css((@record.nil? ? Roadie.current_provider : Roadie::FilesystemProvider.new(nil, "public/uploads/#{@record.class.to_s.underscore}/#{@record.id}")), css_targets, response[:body], url_options, @record)
         else
           response
         end
